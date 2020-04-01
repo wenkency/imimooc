@@ -16,6 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <!--清单引用配置测试-->
+
+        <meta-data
+            android:name="BUGLY_ENABLE_DEBUG"
+            android:value="${IS_DEBUG}" />
+
+        <meta-data
+            android:name="BUGLY_APP_VERSION"
+            android:value="${VERSION_NAME}" />
+
+
     </application>
 
 </manifest>
