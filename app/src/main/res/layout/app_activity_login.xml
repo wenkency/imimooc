@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="200dp"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        android:textColor="@color/titleColor"
+        android:textSize="16dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et_code"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:hint="请输入验证码"
+            android:inputType="phone"
+            android:textColor="@color/titleColor"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/btn_send"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="send"
+            android:text="发送"
+            android:textColor="@color/titleColor"
+            android:textSize="16dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:onClick="login"
+        android:text="登录"
+        android:textColor="@color/titleColor"
+        android:textSize="16dp" />
+</LinearLayout>

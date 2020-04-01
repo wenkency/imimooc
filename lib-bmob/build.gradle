@@ -28,8 +28,8 @@ dependencies {
 
     implementation this.dependLibs.appcompat
     api this.dependLibs.bmob
-    implementation this.dependLibs.rxjava
-    implementation this.dependLibs.rxandroid
+    api this.dependLibs.rxjava
+    api this.dependLibs.rxandroid
     implementation this.dependLibs.okio
     implementation this.dependLibs.gson
     implementation this.dependLibs.okhttp

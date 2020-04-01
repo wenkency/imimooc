@@ -9,14 +9,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Default">
 
         <!-- 适配全屏手机, 为了保证适配 修改targetsdk>26 -->
         <meta-data
             android:name="android.max_aspect"
             android:value="3.4" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Default.NoTitleBar.NoPreview">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,9 +29,13 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".LoginActivity"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor" />
 
         <!--清单引用配置测试-->
-
 
 
     </application>
