@@ -3,12 +3,19 @@
     package="com.lven.immooc">
 
     <application
+        android:name="com.lven.lib.frame.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- 适配全屏手机, 为了保证适配 修改targetsdk>26 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="3.4" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +27,6 @@
 
         <!--清单引用配置测试-->
 
-        <meta-data
-            android:name="BUGLY_ENABLE_DEBUG"
-            android:value="${IS_DEBUG}" />
-
-        <meta-data
-            android:name="BUGLY_APP_VERSION"
-            android:value="${VERSION_NAME}" />
 
 
     </application>

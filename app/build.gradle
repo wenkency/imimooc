@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+// 阿里的ARouter
+apply plugin: 'com.alibaba.arouter'
+// butterKnife
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion this.app.compileSdkVersion
@@ -10,41 +14,28 @@ android {
         targetSdkVersion this.app.targetSdkVersion
         versionCode this.app.versionCode
         versionName this.app.versionName
+
+        // 阿里的ARouter API注解编译用
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
     }
 
     buildTypes {
 
-        // 公共常量配置，在BuildConfig类
-
-
         release {
-
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
-            // 清单里面用:${VERSION_NAME}
-            manifestPlaceholders = [
-                    VERSION_NAME: this.app.versionName,
-                    IS_DEBUG    : "false"
-            ]
-
-            // BuildConfig类下面的常量配置
-            buildConfigField("boolean", "IS_DEBUG", "false")
-            buildConfigField("String", "LOG_TAG", "\"Lven\"")
         }
 
-        debug {
-            // 清单里面用:${VERSION_NAME}
-            manifestPlaceholders = [
-                    VERSION_NAME: this.app.versionName,
-                    IS_DEBUG    : "false"
-            ]
+    }
 
-            // BuildConfig类下面的常量配置
-            buildConfigField("boolean", "IS_DEBUG", "true")
-            buildConfigField("String", "LOG_TAG", "\"Lven\"")
-
-        }
+    // 解编配置
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -52,6 +43,13 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation this.depenLibs.appcompat
-    implementation this.depenLibs.constraintlayout
+    implementation this.dependLibs.appcompat
+    implementation this.dependLibs.constraintlayout
+    // 阿里ARouter
+    annotationProcessor this.dependLibs.arouterCompiler
+    annotationProcessor this.dependLibs.butterKnifeCompiler
+
+    // 自己项目依赖
+    implementation project(path: ':lib-frame')
+
 }

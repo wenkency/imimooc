@@ -2,14 +2,18 @@
 apply from: 'config.gradle'
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.0'
+        // 阿里的ARouter
+        classpath "com.alibaba:arouter-register:1.0.2"
+        // butterKnife
+        classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
     }
 }
 
@@ -17,6 +21,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io' }
+        //Bmob的maven仓库地址--必填
+        maven { url 'https://dl.bintray.com/chaozhouzhang/maven' }
     }
 }
 

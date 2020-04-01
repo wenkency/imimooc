@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion this.app.compileSdkVersion
+    buildToolsVersion this.app.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion this.app.minSdkVersion
+        targetSdkVersion this.app.targetSdkVersion
+        versionCode this.app.libVersionCode
+        versionName this.app.libVersionName
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("boolean", "IS_DEBUG", "false");
+        }
+        debug {
+            buildConfigField("boolean", "IS_DEBUG", "true");
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation this.dependLibs.appcompat
+    api this.dependLibs.base
+    api project(path: ':lib-bmob')
+}
