@@ -21,6 +21,9 @@ import cn.carhouse.titlebar.DefTitleBar;
 import cn.carhouse.utils.LogUtils;
 import cn.carhouse.utils.TSUtils;
 
+/**
+ * 登录页面
+ */
 public class LoginActivity extends AppActivity {
     private static final int CODE_SUCCEED = 1;
     // 倒计时

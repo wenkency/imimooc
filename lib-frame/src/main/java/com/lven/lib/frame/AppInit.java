@@ -1,6 +1,7 @@
 package com.lven.lib.frame;
 
 import android.app.Application;
+import android.os.Looper;
 
 import com.lven.lib.bmob.BmobUtils;
 
@@ -22,7 +23,9 @@ public class AppInit {
         ThreadUtils.getNormalPool().execute(new Runnable() {
             @Override
             public void run() {
+                Looper.prepare();
                 doBackgroundInit(application);
+                Looper.loop();
             }
         });
         // 2. 主线程初始化
