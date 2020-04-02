@@ -3,6 +3,7 @@ package com.lven.immooc;
 import android.view.View;
 
 import com.lven.lib.bmob.BmobBean;
+import com.lven.lib.bmob.BmobUtils;
 
 import java.util.List;
 
@@ -91,6 +92,11 @@ public class MainActivity extends AppActivity {
     }
 
     public void login(View view) {
+        // 如果登录了
+        if (BmobUtils.isLogin()){
+
+            return;
+        }
         ActivityUtils.startActivity(this, LoginActivity.class);
     }
 

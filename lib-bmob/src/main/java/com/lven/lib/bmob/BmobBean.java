@@ -6,6 +6,7 @@ import cn.bmob.v3.BmobObject;
 
 public class BmobBean extends BmobObject implements Serializable {
     private String name;
+    private String avatar;
     // 性别：0女 1男
     private int sex;
 

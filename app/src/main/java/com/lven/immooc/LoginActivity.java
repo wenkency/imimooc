@@ -1,13 +1,9 @@
 package com.lven.immooc;
 
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import androidx.annotation.NonNull;
 
 import com.lven.lib.bmob.BmobUtils;
 import com.lven.lib.bmob.IMUser;
@@ -25,9 +21,7 @@ import cn.carhouse.utils.TSUtils;
  * 登录页面
  */
 public class LoginActivity extends AppActivity {
-    private static final int CODE_SUCCEED = 1;
-    // 倒计时
-    private int time = 60;
+
     @BindView(R.id.et_phone)
     EditText mEtPhone;
     @BindView(R.id.et_code)
@@ -35,26 +29,8 @@ public class LoginActivity extends AppActivity {
     @BindView(R.id.btn_send)
     Button mBtnSend;
 
-    private Handler mHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(@NonNull Message msg) {
-            switch (msg.what) {
-                case CODE_SUCCEED:
-                    time--;
-                    // 获取验证码发送成功
-                    if (time <= 0) {
-                        mHandler.removeMessages(CODE_SUCCEED);
-                        mBtnSend.setEnabled(true);
-                        mBtnSend.setText("发送");
-                        break;
-                    }
-                    mBtnSend.setText(time + "s");
-                    mHandler.sendEmptyMessageDelayed(CODE_SUCCEED, 1000);
-                    break;
-            }
-            return true;
-        }
-    });
+    private CountdownHandler mHandler;
+
 
     @Override
     protected void initTitle(DefTitleBar titleBar) {
@@ -64,6 +40,28 @@ public class LoginActivity extends AppActivity {
     @Override
     protected Object getContentLayout() {
         return R.layout.app_activity_login;
+    }
+
+    @Override
+    protected void initViews(View view) {
+        mHandler = new CountdownHandler();
+        mHandler.setOnCountdownListener(new CountdownHandler.OnCountdownListener() {
+            @Override
+            public void start() {
+                mBtnSend.setEnabled(false);
+            }
+
+            @Override
+            public void onCountdown(int time) {
+                mBtnSend.setText(time + "s");
+            }
+
+            @Override
+            public void onEnd() {
+                mBtnSend.setEnabled(true);
+                mBtnSend.setText("发送");
+            }
+        });
     }
 
     /**
@@ -84,8 +82,7 @@ public class LoginActivity extends AppActivity {
                     return;
                 }
                 TSUtils.show("获取验证码成功");
-                mBtnSend.setEnabled(false);
-                mHandler.sendEmptyMessage(CODE_SUCCEED);
+                mHandler.start(60);
             }
         });
     }
@@ -127,5 +124,13 @@ public class LoginActivity extends AppActivity {
         if (imUser != null) {
             LogUtils.e("IMUser:" + imUser.getUsername() + " " + imUser.getMobilePhoneNumber());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mHandler != null) {
+            mHandler.stop();
+        }
+        super.onDestroy();
     }
 }
