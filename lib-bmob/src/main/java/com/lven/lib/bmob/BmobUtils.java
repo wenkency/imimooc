@@ -39,6 +39,16 @@ public class BmobUtils {
     public static IMUser getIMUser() {
         return BmobUser.getCurrentUser(IMUser.class);
     }
+    /**
+     * 获取当前登录用户和IM Token
+     */
+    public static String getToken() {
+        IMUser imUser = getIMUser();
+        if (imUser == null) {
+            return null;
+        }
+        return imUser.getToken();
+    }
 
     /**
      * 判断用户是否登录

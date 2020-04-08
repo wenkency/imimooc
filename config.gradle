@@ -18,15 +18,20 @@ ext {
             butterKnifeCompiler: 'com.jakewharton:butterknife-compiler:10.2.1',
             // 阿里ARouter
             arouterCompiler    : "com.alibaba:arouter-compiler:1.2.2",
+            // Bmob
             bmob               : 'cn.bmob.android:bmob-sdk:3.7.7',
             rxjava             : "io.reactivex.rxjava2:rxjava:2.2.2",
             rxandroid          : 'io.reactivex.rxjava2:rxandroid:2.1.0',
             gson               : 'com.google.code.gson:gson:2.8.6',
-            okhttp             : 'com.squareup.okhttp3:okhttp:4.4.0',
-            okio               : 'com.squareup.okio:okio:2.5.0',
+            okhttp             : 'com.squareup.okhttp3:okhttp:3.12.0',
+            okio               : 'com.squareup.okio:okio:2.1.0',
+            // //im_kit必须依赖im_lib，所以需要加入对应依赖
+            im_lib             : 'cn.rongcloud.sdk:im_lib:2.9.18',
+            rtc_lib            : 'cn.rongcloud.rtclib:rtc_lib:3.1.3',
             // 自己封装的库
-            base               : "com.github.wenkency:base:1.8.0",
-            http               : 'com.github.wenkency:http:1.4.0',
+            base               : "com.github.wenkency:base:1.9.0",
+            http               : 'com.github.wenkency:http:1.5.0',
+            utils              : 'com.github.wenkency:utils:1.5.0',
     ]
 
     maven = [

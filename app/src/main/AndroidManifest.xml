@@ -3,7 +3,7 @@
     package="com.lven.immooc">
 
     <application
-        android:name="com.lven.lib.frame.AppApplication"
+        android:name=".app.AppApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,9 +35,15 @@
             android:launchMode="singleTask"
             android:screenOrientation="fullSensor" />
 
+        <activity
+            android:name=".ConversationActivity"
+            android:configChanges="locale|keyboardHidden|orientation|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor" />
+
         <!--清单引用配置测试-->
 
-
+        <service android:name=".imrc.IMCloudService" />
     </application>
 
 </manifest>

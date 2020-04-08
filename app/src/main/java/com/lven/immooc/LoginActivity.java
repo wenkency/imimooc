@@ -12,9 +12,10 @@ import butterknife.BindView;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.QueryListener;
+import cn.bmob.v3.listener.UpdateListener;
 import cn.carhouse.base.ui.AppActivity;
 import cn.carhouse.titlebar.DefTitleBar;
-import cn.carhouse.utils.LogUtils;
+import cn.carhouse.utils.CountdownHandler;
 import cn.carhouse.utils.TSUtils;
 
 /**
@@ -121,8 +122,22 @@ public class LoginActivity extends AppActivity {
     private void loginSucceed() {
         TSUtils.show("登录成功");
         IMUser imUser = BmobUtils.getIMUser();
+
+        // 更新
         if (imUser != null) {
-            LogUtils.e("IMUser:" + imUser.getUsername() + " " + imUser.getMobilePhoneNumber());
+            imUser.setName("Lven");
+            imUser.setAvatar("https://img.car-house.cn/Upload/goods/20181023/source/6d96a0f883de42b38fa1229926975ec6.jpg");
+            imUser.update(new UpdateListener() {
+                @Override
+                public void done(BmobException e) {
+                    if (e == null) {
+                        TSUtils.show("更新成功");
+                    } else {
+                        TSUtils.show("更新失败:" + e.getMessage());
+                    }
+                }
+            });
+
         }
     }
 

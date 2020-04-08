@@ -1,4 +1,4 @@
-package com.lven.lib.frame;
+package com.lven.immooc.app;
 
 import android.app.Application;
 

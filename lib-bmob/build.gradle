@@ -30,7 +30,7 @@ dependencies {
     api this.dependLibs.bmob
     api this.dependLibs.rxjava
     api this.dependLibs.rxandroid
-    implementation this.dependLibs.okio
-    implementation this.dependLibs.gson
-    implementation this.dependLibs.okhttp
+    api this.dependLibs.okio
+    api this.dependLibs.gson
+    api this.dependLibs.okhttp
 }

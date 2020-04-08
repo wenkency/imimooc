@@ -1,9 +1,18 @@
 package com.lven.immooc;
 
+import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.lven.immooc.http.CarCallback;
+import com.lven.immooc.imrc.IMCloudService;
+import com.lven.immooc.presenter.CarPresenter;
 import com.lven.lib.bmob.BmobBean;
 import com.lven.lib.bmob.BmobUtils;
+import com.lven.lib.bmob.IMUser;
+import com.lven.lib.frame.bmob.IMTokenUser;
+import com.lven.lib.frame.http.BeanCallback;
+import com.lven.immooc.presenter.BmobPresenter;
 
 import java.util.List;
 
@@ -14,8 +23,8 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 import cn.carhouse.base.ui.AppActivity;
 import cn.carhouse.titlebar.DefTitleBar;
-import cn.carhouse.utils.ActivityUtils;
 import cn.carhouse.utils.LogUtils;
+import cn.carhouse.utils.TSUtils;
 
 public class MainActivity extends AppActivity {
 
@@ -92,13 +101,64 @@ public class MainActivity extends AppActivity {
     }
 
     public void login(View view) {
-        // 如果登录了
-        if (BmobUtils.isLogin()){
 
+        // 1. 如果没登录
+        if (!BmobUtils.isLogin()) {
+            startActivity(new Intent(this, LoginActivity.class));
             return;
         }
-        ActivityUtils.startActivity(this, LoginActivity.class);
+        // 获取用户Token
+        IMUser imUser = BmobUtils.getIMUser();
+        if (imUser == null) {
+            return;
+        }
+        String token = imUser.getToken();
+        if (!TextUtils.isEmpty(token)) {
+            connectIM(token);
+            return;
+        }
+        // 2. 获取融云Token
+        BmobPresenter.getToken(this, imUser, new BeanCallback<IMTokenUser>() {
+            @Override
+            public void onSucceed(IMTokenUser user) {
+                imUser.setToken(user.token);
+                imUser.update(new UpdateListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e != null) {
+                            return;
+                        }
+                        connectIM(user.token);
+                    }
+                });
+            }
+        });
+
     }
 
+    /**
+     * 根据Token去连接IM
+     *
+     * @param token
+     */
+    private void connectIM(String token) {
+        if (TextUtils.isEmpty(token)) {
+            return;
+        }
+        startService(new Intent(this, IMCloudService.class));
 
+    }
+
+    /**
+     * 测试
+     * @param view
+     */
+    public void test(View view) {
+        CarPresenter.getMsgCode(this, "13556285219", new CarCallback<Object>() {
+            @Override
+            public void onSucceed(Object data) {
+                TSUtils.show("获取验证码成功");
+            }
+        });
+    }
 }

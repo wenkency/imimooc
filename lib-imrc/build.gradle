@@ -9,6 +9,9 @@ android {
         targetSdkVersion this.app.targetSdkVersion
         versionCode this.app.libVersionCode
         versionName this.app.libVersionName
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
 
     buildTypes {
@@ -24,4 +27,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation this.dependLibs.appcompat
+    //im_kit必须依赖im_lib，所以需要加入对应依赖
+    api(this.dependLibs.im_lib) {
+        exclude group: 'com.android.support'
+        exclude group: 'com.google.code.gson'
+    }
 }

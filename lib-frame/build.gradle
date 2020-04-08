@@ -27,7 +27,18 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+    // Android开发包
     implementation this.dependLibs.appcompat
+    // 这个自己封装的基础包
     api this.dependLibs.base
+    api this.dependLibs.utils
+    // 网络请求相关
+    api(this.dependLibs.http) {
+        exclude group: 'com.squareup.okio'
+        exclude group: 'com.squareup.okhttp3'
+    }
+    // Bmob后台数据库相关
     api project(path: ':lib-bmob')
+    api project(path: ':lib-imrc')
+
 }
